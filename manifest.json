@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "AI Hover Assistant",
+    "version": "1.0.0",
+    "description": "AI-powered floating assistant with Claude integration",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "contextMenus"
+    ],
+    "host_permissions": [
+      "<all_urls>",
+      "https://*.anthropic.com/*"
+    ],
+    "web_accessible_resources": [{
+      "resources": [
+        ".env",
+        "api-key-checker.js"
+      ],
+      "matches": ["<all_urls>"]
+    }],
+    "action": {
+      "default_popup": "popup/popup.html"
+    },
+    "background": {
+      "service_worker": "js/background.js",
+      "type": "module"
+    },
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": [
+        "js/claude-service.js",
+        "js/context-service.js",
+        "js/hover-box.js",
+        "js/content-script.js"
+      ],
+      "run_at": "document_end"
+    }],
+    "icons": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
